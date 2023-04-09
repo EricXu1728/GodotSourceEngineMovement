@@ -31,10 +31,10 @@ var ply_maxvelocity = 35000
 var ply_crouchstanceheight = 3
 var ply_crouchedheight = -1
 var ply_crouchlerpweight = 0.4
-var ply_jumpheight = 8#4
+var ply_jumpheight = 6#4
 var ply_stepsize = 16
 
-var ply_maxspeed = 45
+var ply_maxspeed = 30
 
 # Bools
 var noclip : bool
@@ -52,3 +52,7 @@ var forwardmove : float
 var ylook : float
 var xlook : float
 var maxspeed : float
+
+#functions
+func softHardCap(softCap, hardCap, val, easeIn):
+	return min(hardCap, min(val, (val*easeIn) + (softCap*(1-easeIn) )))
