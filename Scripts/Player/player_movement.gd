@@ -102,6 +102,23 @@ func WalkMove(delta):
 	
 	Accelerate(wishdir, wishspeed, ply_accelerate, delta)
 	
+	#reduce straifing on ground
+	#extreamly dislike how this is implimented and should think of a more flexible way of controlling acceleration gained from just walking without increasing friction
+	if (wasOnFloor):
+		var groundvel = Vector2(vel[0], vel[2])
+		var velLength = groundvel.length()
+		var angle = groundvel.angle()
+		
+		var softCap = maxspeed
+		var hardCap = softCap*1.2 +10   
+		
+		velLength = softHardCap(softCap, hardCap, velLength, 0.5)
+		print(velLength)
+		
+		var newVel = Vector2(cos(angle), sin(angle)) *  velLength
+		vel[0] = min(newVel[0], vel[0])
+		vel[2] = min(newVel[1], vel[2]) 
+	
 	$top.set_disabled(false)
 	$bottom.set_disabled(false)
 	
